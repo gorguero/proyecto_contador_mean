@@ -29,5 +29,15 @@ export class LoginComponent {
 
     console.log(this.loginForm.value)
   }
+
+  campoNoValido( campo:string ): boolean {
+
+    if( this.loginForm.get(campo)?.invalid && this.formSubmit ){
+      return true;
+    }else{
+      return false;
+    }
+
+  }
   
 }

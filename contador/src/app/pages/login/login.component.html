@@ -16,12 +16,30 @@
                             formControlName="email" >
                         </div>
                     </div>
+                    
+                    <div class="row">
+                        <div class="col text-danger">
+                            <p *ngIf="campoNoValido('email')">
+                                El correo debe ser válido.
+                            </p>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <div class="col-xs-12">
                             <input class="form-control" type="password" placeholder="Password"
                             formControlName="password" >
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col text-danger">
+                            <p *ngIf="campoNoValido('password')">
+                                La contraseña debe ser válida.
+                            </p>
+                        </div>
+                    </div>
+
                     <div class="form-group text-center m-t-20">
                         <div class="col-xs-12">
                             <button class="btn btn-info btn-lg btn-block text-uppercase btn-rounded" type="submit">Iniciar Sesión</button>

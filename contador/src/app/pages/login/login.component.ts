@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 //declare var JQuery: any;
 //declare var $: any;
@@ -18,7 +19,7 @@ export class LoginComponent {
     password: ['', [Validators.required]]
   });
 
-  constructor(private fb:FormBuilder){}
+  constructor(private fb:FormBuilder, private router:Router){}
 
   login(){
     this.formSubmit = true;
@@ -28,6 +29,7 @@ export class LoginComponent {
     }
 
     console.log(this.loginForm.value)
+    this.router.navigateByUrl('/dashboard/perfil');
   }
 
   campoNoValido( campo:string ): boolean {

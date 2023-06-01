@@ -1,4 +1,5 @@
 // cambiar url de servicios
 export const environment = {
-  production: false
+  production: false,
+  endpoint_url: 'http://localhost:5000/'
 };

@@ -32,9 +32,17 @@ export class RegistroComponent {
 
     console.log(this.registroForm.value);
     this.usuarioService.crearUsuario(this.registroForm.value)
-      .subscribe(resp => {
-        console.log(resp);
-      })
+      .subscribe(
+        {
+          next: resp => {
+            console.log(resp);
+          },
+          error: err => {
+            console.log(err.error.msg);
+          }
+        },
+      );
+      
   }
 
   camposNoValidos( campo:string ): boolean{

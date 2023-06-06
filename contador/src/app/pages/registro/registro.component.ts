@@ -20,7 +20,7 @@ export class RegistroComponent {
   });
 
   formSubmit: boolean = false;
-
+ 
   constructor(private fb:FormBuilder, private usuarioService: UsuarioService){}
 
   crearUsuario(){
@@ -31,7 +31,10 @@ export class RegistroComponent {
     }
 
     console.log(this.registroForm.value);
-    this.usuarioService.registrarUsuario(this.registroForm.value);
+    this.usuarioService.crearUsuario(this.registroForm.value)
+      .subscribe(resp => {
+        console.log(resp);
+      })
   }
 
   camposNoValidos( campo:string ): boolean{

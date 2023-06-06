@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
@@ -35,14 +36,30 @@ export class RegistroComponent {
       .subscribe(
         {
           next: resp => {
-            console.log(resp);
+            Swal.fire(
+              {
+                icon: 'success',
+                title: 'Registrado correctamente!',
+                text: 'Ahora puede iniciar sesion',
+                timer: 3000
+              }
+            )
+
           },
           error: err => {
-            console.log(err.error.msg);
+            Swal.fire(
+              {
+                icon: 'error',
+                title: 'Error',
+                text: err.error.msg,
+                timer: 3000
+              }
+            )
+
           }
         },
       );
-      
+
   }
 
   camposNoValidos( campo:string ): boolean{

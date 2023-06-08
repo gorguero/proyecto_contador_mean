@@ -40,6 +40,7 @@ export class LoginComponent {
               timer: 3000,
             });
             this.router.navigateByUrl('/dashboard/perfil');
+            console.log(resp)
           },
           error: err => {
             Swal.fire(

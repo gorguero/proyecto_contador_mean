@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Registro } from '../interfaces/registro.interface';
 import { Login } from '../interfaces/login.interface';
+import { tap } from 'rxjs/operators';
 
 const url = environment.url;
 
@@ -18,7 +19,16 @@ export class UsuarioService {
   }
 
   login( data: Login ){
-    return this.http.post(`${url}/login`, data);
+    return this.http.post(`${url}/login`, data)
+      .pipe(
+        tap( (resp:any) => {
+          localStorage.setItem('token', resp.token);
+        } )
+      );
+  }
+
+  logout(){
+    localStorage.removeItem('token');
   }
 
 }

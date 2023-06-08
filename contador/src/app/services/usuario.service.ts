@@ -14,15 +14,24 @@ export class UsuarioService {
 
   constructor(private http:HttpClient) { }
 
+  almacenarLocalStorage(token:string){
+    localStorage.setItem('token', token);
+  }
+
   crearUsuario( data: Registro ){
-    return this.http.post(`${url}/usuarios`, data);
+    return this.http.post(`${url}/usuarios`, data)
+      .pipe(
+        tap( (resp:any) => {
+          this.almacenarLocalStorage(resp.token);
+        } )
+      );
   }
 
   login( data: Login ){
     return this.http.post(`${url}/login`, data)
       .pipe(
         tap( (resp:any) => {
-          localStorage.setItem('token', resp.token);
+          this.almacenarLocalStorage(resp.token);
         } )
       );
   }

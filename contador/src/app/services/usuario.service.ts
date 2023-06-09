@@ -5,6 +5,7 @@ import { Registro } from '../interfaces/registro.interface';
 import { Login } from '../interfaces/login.interface';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { Usuarios } from '../models/usuarios.model';
 
 const url = environment.url;
 
@@ -13,7 +14,20 @@ const url = environment.url;
 })
 export class UsuarioService {
 
+  public usuario: any;
+
   constructor(private http:HttpClient) { }
+
+  get token():string{
+    return localStorage.getItem('token') || '';
+  }
+  get headers(){
+    return {
+      headers: {
+        'x-token': this.token
+      }
+    }
+  }
 
   almacenarLocalStorage(token:string){
     localStorage.setItem('token', token);
@@ -44,12 +58,13 @@ export class UsuarioService {
   renovarToken():Observable<boolean>{
     return this.http.get(`${url}/login/renovartoken`, {
       headers: {
-        'x-token': localStorage.getItem('token') || ''
+        'x-token': this.token
       }
     }).pipe(
       map( (resp:any) => {
-        console.log('Desde el servicio')
-        console.log(resp)
+        const { nombre, email, curp, telefono, password, password2, role, uid } = resp.usuario;
+        this.almacenarLocalStorage( resp.token );
+        this.usuario = new Usuarios( nombre, email, curp, telefono, '', '', role, uid );
         return true
       }),
       catchError(error => of(false))

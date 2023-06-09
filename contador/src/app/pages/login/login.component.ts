@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from 'sweetalert2';
 
 //declare var JQuery: any;
 //declare var $: any;
@@ -19,7 +21,7 @@ export class LoginComponent {
     password: ['', [Validators.required]]
   });
 
-  constructor(private fb:FormBuilder, private router:Router){}
+  constructor(private fb:FormBuilder, private router:Router, private usuarioService:UsuarioService){}
 
   login(){
     this.formSubmit = true;
@@ -28,8 +30,30 @@ export class LoginComponent {
       return;
     }
 
-    console.log(this.loginForm.value)
-    this.router.navigateByUrl('/dashboard/perfil');
+    this.usuarioService.login(this.loginForm.value)
+      .subscribe(
+        {
+          next: resp => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Bienvenido!',
+              timer: 3000,
+            });
+            this.router.navigateByUrl('/dashboard/perfil');
+          },
+          error: err => {
+            Swal.fire(
+            {
+              icon: 'error',
+              title: 'Error',
+              text: err.error.msg,
+              timer: 3000
+            }
+            )
+
+          }
+        },
+      );
   }
 
   campoNoValido( campo:string ): boolean {

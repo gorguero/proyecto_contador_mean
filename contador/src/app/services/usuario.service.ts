@@ -75,11 +75,11 @@ export class UsuarioService {
     )
   }
 
-  actualizarPerfil( data: { email:string, nombre:string, curp:string, telefono:string, rol:string } ){
+  actualizarPerfil( data: { email:string, nombre:string, curp:string, telefono:string, rol:any } ){
 
     data = {
       ...data,
-      rol: 'USER_ROL'
+      rol: this.usuario.rol
     }
     
     return this.http.put( `${url}/usuarios/${this.uid}`, data, this.headers );

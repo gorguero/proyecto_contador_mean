@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-perfil',
@@ -31,7 +32,43 @@ export class PerfilComponent implements OnInit{
     if(this.perfilForm.invalid){
       return;
     }
-    console.log(this.perfilForm.value)
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: '¿Desea actualizar los datos?',
+      text: "¿Esta seguro de realizar estos cambios?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, actualizar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(this.perfilForm.value)
+        swalWithBootstrapButtons.fire(
+          'Actualizado!',
+          'Se actualizó exitosamente!',
+          'success'
+        )
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado',
+          'La operación fue cancelada',
+          'error'
+        )
+      }
+    })
+
   }
 
   camposNoValidos( campo:string ): boolean{

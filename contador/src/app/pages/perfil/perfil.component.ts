@@ -59,8 +59,15 @@ export class PerfilComponent implements OnInit{
                 'Se actualizó exitosamente!',
                 'success'
               )
+              
+              const {nombre, email, curp, telefono} = this.perfilForm.value;
+              this.usuario.nombre = nombre;
+              this.usuario.email = email;
+              this.usuario.curp = curp;
+              this.usuario.telefono = telefono;
+
             } )
-            
+
       } else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel

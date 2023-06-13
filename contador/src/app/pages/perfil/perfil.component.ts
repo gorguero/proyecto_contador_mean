@@ -11,6 +11,7 @@ export class PerfilComponent implements OnInit{
 
   public perfilForm!: FormGroup;
   public usuario: any;
+  public formSubmit: boolean = false;
 
   constructor(private usuarioService:UsuarioService, private fb:FormBuilder){
     this.usuario = usuarioService.usuario;
@@ -26,7 +27,21 @@ export class PerfilComponent implements OnInit{
   }
 
   actualizar(){
+    this.formSubmit = true;
+    if(this.perfilForm.invalid){
+      return;
+    }
     console.log(this.perfilForm.value)
+  }
+
+  camposNoValidos( campo:string ): boolean{
+    
+    if( this.perfilForm.get(campo)?.invalid && this.formSubmit ){
+      return true;
+    }else{
+      return false;
+    }
+
   }
 
 }

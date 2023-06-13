@@ -28,6 +28,11 @@
                                     value="{{usuario.nombre}}"
                                     formControlName="nombre"
                                     >
+                                    <div class="row">
+                                        <div class="col text-danger">                            
+                                            <p *ngIf="camposNoValidos('nombre')">Por favor, debe ingresar un nombre</p>
+                                        </div>
+                                    </div> 
                                 </div>
                             </div>
                             <div class="form-group">
@@ -37,6 +42,11 @@
                                     value="{{usuario.email}}"
                                     formControlName="email"
                                     >
+                                    <div class="row">
+                                        <div class="col text-danger">                            
+                                            <p *ngIf="camposNoValidos('email')">Por favor, debe ingresar un email</p>
+                                        </div>
+                                    </div> 
                                 </div>
                             </div>
                             <div class="form-group">
@@ -46,6 +56,11 @@
                                     value="{{usuario.curp}}"
                                     formControlName="curp"
                                     >
+                                    <div class="row">
+                                        <div class="col text-danger">                            
+                                            <p *ngIf="camposNoValidos('curp')">Por favor, debe ingresar un CURP</p>
+                                        </div>
+                                    </div> 
                                 </div>
                             </div>                            
                             <div class="form-group">
@@ -55,15 +70,14 @@
                                     value="{{usuario.telefono}}"
                                     formControlName="telefono"
                                     >
+                                    <div class="row">
+                                        <div class="col text-danger">                            
+                                            <p *ngIf="camposNoValidos('telefono')">Por favor, debe ingresar un telefono</p>
+                                        </div>
+                                    </div> 
                                 </div>
-                            </div>                            
-                            <div class="row">
-                                <div class="col text-danger">                            
-                                    
-                                </div>
-                            </div>                 
-                            <div
-                            ></div>                                       
+                            </div>      
+                                                                  
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <button type="submit" class="btn btn-success">Actualizar datos</button>

@@ -9,9 +9,11 @@ import { UsuarioService } from '../services/usuario.service';
 })
 export class PagesComponent implements OnInit {
 
+  public usuario: any;
 
   constructor( private router:Router, private usuarioService:UsuarioService) {    
-    
+    this.usuario = usuarioService.usuario;
+    console.log(this.usuario);
   }
 
   ngOnInit() {

@@ -7,7 +7,7 @@ export class Usuarios {
         public telefono: string,
         public password: string,
         public password2: string,
-        public role: 'ADMIN_ROLE' | 'USER_ROLE',
+        public rol: 'ADMIN_ROL' | 'USER_ROL',
         public uid: string
     ){}
 

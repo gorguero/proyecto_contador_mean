@@ -52,11 +52,15 @@ export class PerfilComponent implements OnInit{
     }).then((result) => {
       if (result.isConfirmed) {
         console.log(this.perfilForm.value)
-        swalWithBootstrapButtons.fire(
-          'Actualizado!',
-          'Se actualizó exitosamente!',
-          'success'
-        )
+        this.usuarioService.actualizarPerfil( this.perfilForm.value )
+            .subscribe( resp => {
+              swalWithBootstrapButtons.fire(
+                'Actualizado!',
+                'Se actualizó exitosamente!',
+                'success'
+              )
+            } )
+            
       } else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel

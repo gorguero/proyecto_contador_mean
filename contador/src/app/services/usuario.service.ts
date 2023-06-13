@@ -28,6 +28,10 @@ export class UsuarioService {
       }
     }
   }
+  
+  get uid():string{
+    return this.usuario.uid || '';
+  }
 
   almacenarLocalStorage(token:string){
     localStorage.setItem('token', token);
@@ -62,13 +66,23 @@ export class UsuarioService {
       }
     }).pipe(
       map( (resp:any) => {
-        const { nombre, email, curp, telefono, password, password2, role, uid } = resp.usuario;
+        const { nombre, email, curp, telefono, password, password2, rol, uid } = resp.usuario;
         this.almacenarLocalStorage( resp.token );
-        this.usuario = new Usuarios( nombre, email, curp, telefono, '', '', role, uid );
+        this.usuario = new Usuarios( nombre, email, curp, telefono, '', '', rol, uid );
         return true
       }),
       catchError(error => of(false))
     )
+  }
+
+  actualizarPerfil( data: { email:string, nombre:string, curp:string, telefono:string, rol:string } ){
+
+    data = {
+      ...data,
+      rol: 'USER_ROL'
+    }
+    
+    return this.http.put( `${url}/usuarios/${this.uid}`, data, this.headers );
   }
 
 }

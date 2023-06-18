@@ -30,7 +30,13 @@ import { MisDocumentosComponent } from './mis-documentos/mis-documentos.componen
   ],
   exports: [
     PagesComponent,
-    PerfilComponent
+    PerfilComponent,
+    UsuariosComponent,
+    NuevoDocumentoComponent,
+    EditarDocumentoComponent,
+    DocumentosComponent,
+    ArchivosComponent,
+    MisDocumentosComponent,
   ]
 })
 export class PagesModule { }

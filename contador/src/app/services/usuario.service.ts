@@ -33,15 +33,16 @@ export class UsuarioService {
     return this.usuario.uid || '';
   }
 
-  almacenarLocalStorage(token:string){
+  almacenarLocalStorage(token:string, menu:any){
     localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
   }
 
   crearUsuario( data: Registro ){
     return this.http.post(`${url}/usuarios`, data)
       .pipe(
         tap( (resp:any) => {
-          this.almacenarLocalStorage(resp.token);
+          this.almacenarLocalStorage(resp.token, resp.menu);
         } )
       );
   }
@@ -50,7 +51,7 @@ export class UsuarioService {
     return this.http.post(`${url}/login`, data)
       .pipe(
         tap( (resp:any) => {
-          this.almacenarLocalStorage(resp.token);
+          this.almacenarLocalStorage(resp.token, resp.menu);
         } )
       );
   }
@@ -67,7 +68,7 @@ export class UsuarioService {
     }).pipe(
       map( (resp:any) => {
         const { nombre, email, curp, telefono, password, password2, rol, uid } = resp.usuario;
-        this.almacenarLocalStorage( resp.token );
+        this.almacenarLocalStorage( resp.token, resp.menu );
         this.usuario = new Usuarios( nombre, email, curp, telefono, '', '', rol, uid );
         return true
       }),

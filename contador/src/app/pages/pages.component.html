@@ -60,39 +60,14 @@
                                 <li role="separator" class="divider"></li>                                
                                 <li>
                                     
-                                <li >
-                                    <a class="has-arrow waves-effect waves-dark" routerLink="./perfil" aria-expanded="false">
-                                        <i class="mdi mdi-account-alert">
+                                <li *ngFor="let item of menu">
+                                    <a class="has-arrow waves-effect waves-dark" [routerLink]="item.url" aria-expanded="false">
+                                        <i [class]="item.icono">
                                             Mi Perfil
                                         </i>
                                     </a>                                                                    
                                 </li> 
-                                <li >
-                                    <a class="has-arrow waves-effect waves-dark" routerLink="./usuarios" aria-expanded="false">
-                                        <i class="mdi mdi-account-alert">
-                                            Usuarios
-                                        </i>
-                                    </a> 
-                                </li>
-                                <li >
-                                    <a class="has-arrow waves-effect waves-dark" routerLink="./nuevo-documento" aria-expanded="false">
-                                        <i class="mdi mdi-folder-lock-open">
-                                            Nuevo Documento
-                                        </i>
-                                    </a>                                                                    
-                                </li>
-                                <li >
-                                    <a class="has-arrow waves-effect waves-dark" routerLink="./documentos" aria-expanded="false">
-                                        <i class="mdi mdi-folder-lock-open">
-                                            Documentos Generales
-                                        </i>
-                                    </a>                                                                    
-                                </li>
-                                <li>
-                                    <a class="cursor" routerLink="./documentos/mis-documentos/123" >
-                                        <i class="mdi mdi-folder-lock-open"> Mis Documentos</i>
-                                    </a>
-                                </li>
+                                
                                 <li role="separator" class="divider"></li>
                                 <li><a (click)="logout()" class="cursor" ><i class="fa fa-power-off"></i>Salir</a></li>
                             </ul>

@@ -6,6 +6,7 @@ import { Login } from '../interfaces/login.interface';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Usuarios } from '../models/usuarios.model';
+import { CargarUsuarios } from '../interfaces/cargar-usuarios.interface';
 
 const url = environment.url;
 
@@ -84,6 +85,17 @@ export class UsuarioService {
     }
     
     return this.http.put( `${url}/usuarios/${this.uid}`, data, this.headers );
+  }
+
+  cargarUsuarios(){
+    return this.http.get<CargarUsuarios>(`${url}/usuarios`, this.headers)
+    .pipe(
+      map(  resp => {
+        const documentos = resp.usuarios.map(
+          user => new Usuarios( user.nombre, user.email, user.curp, user.telefono, '', '', user.rol, user.uid ))
+        return documentos;
+      })
+    )
   }
 
 }

@@ -30,15 +30,15 @@
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
-                                        <th>correo</th>
+                                        <th>Correo</th>
                                         <th>Role</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr >
-                                        <td>123</td>
-                                        <td>123</td>
+                                    <tr *ngFor="let usuario of usuarios">
+                                        <td>{{ usuario.nombre }}</td>
+                                        <td>{{ usuario.email }}</td>
                                         <td>
                                             <select class="form-control"
                                                     

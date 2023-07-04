@@ -98,4 +98,9 @@ export class UsuarioService {
     )
   }
 
+  //Guarda el usuario con su nuevo rol
+  guardarUsuario( usuario:Usuarios ){
+    return this.http.put(`${url}/usuarios/${usuario.uid}`, usuario, this.headers);
+  }
+
 }

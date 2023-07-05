@@ -36,21 +36,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let usuario of usuarios">
+                                    <tr *ngFor="let usuario of usuarios; let i = index">
                                         <td>{{ usuario.nombre }}</td>
                                         <td>{{ usuario.email }}</td>
                                         <td>
                                             <select class="form-control"
                                                     [(ngModel)]="usuario.rol"
                                                     (change)="cambiarRol(usuario)">
-                                                <option value="ADMIN_ROLE">Admin</option>
-                                                <option value="USER_ROLE">User</option>
+                                                <option [selected]="i == 1" >{{usuario.rol}}</option>
+                                                <option value="ADMIN_ROL">ADMIN_ROL</option>
+                                                <option value="USER_ROL">USER_ROL</option>
                                             </select>
                                         </td>
                                         <td class="text-nowrap text-center">                                  
                                             <a data-toggle="tooltip" 
                                                 data-original-title="Borrar"
                                                 class="cursor"
+                                                (click)="eliminarUsuario(usuario)"
                                                 >
                                                 <i class="fa fa-close text-danger"></i> 
                                             </a>

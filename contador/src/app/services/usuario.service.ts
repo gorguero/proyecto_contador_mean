@@ -103,4 +103,9 @@ export class UsuarioService {
     return this.http.put(`${url}/usuarios/${usuario.uid}`, usuario, this.headers);
   }
 
+  eliminarUsuario( usuario:Usuarios ){
+    const url_delete = `${url}/usuarios/${usuario.uid}`;
+    return this.http.delete( url_delete, this.headers );
+  }
+
 }

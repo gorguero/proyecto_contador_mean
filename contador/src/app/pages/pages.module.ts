@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'; //Permite navegación entre componentes
+import { NgxPaginationModule } from 'ngx-pagination';
 import { PagesComponent } from './pages.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfilComponent } from './perfil/perfil.component';
@@ -26,6 +27,7 @@ import { MisDocumentosComponent } from './mis-documentos/mis-documentos.componen
     CommonModule,
     RouterModule,
     FormsModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
   ],
   exports: [

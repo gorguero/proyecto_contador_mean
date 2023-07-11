@@ -13,10 +13,8 @@ export class UsuariosComponent implements OnInit{
   public cargando:boolean = false;
   public usuarios!: Usuarios[];
   public usuariosTemp: Usuarios[] = [];
-
-  constructor(private usuarioService: UsuarioService) {
-    
-  }
+  public p: any = 1;
+  constructor(private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
     this.cargarUsuarios();

@@ -36,7 +36,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let usuario of usuarios; let i = index">
+                                    <tr *ngFor="let usuario of usuarios | paginate: { itemsPerPage: 2, currentPage: p }; let i = index ">
                                         <td>{{ usuario.nombre }}</td>
                                         <td>{{ usuario.email }}</td>
                                         <td>
@@ -60,7 +60,7 @@
                                     </tr>                                    
                                 </tbody>
                             </table>
-                            
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         </div>
                     </div>
 

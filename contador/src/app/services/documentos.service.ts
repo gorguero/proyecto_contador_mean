@@ -30,6 +30,18 @@ export class DocumentosService {
     return this.documento._id || '';
   }
 
+  cargarDocumentos(){
+    return this.http.get<CargarDocumentos>(`${base_url}/documentos`, this.headers)
+      .pipe(
+        map( resp => {
+          const documentos = resp.documentos.map(
+            user => new Documentos(user.nombre, user.fecha, user.usuario, user.pdf, user._id)
+          );
+          return documentos;
+        })
+      );
+  }
+
   cargarMisDocumentosPersonales( id:string ){
 
     const url = `${base_url}/documentos/mis-documentos`;

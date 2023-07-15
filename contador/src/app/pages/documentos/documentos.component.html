@@ -43,12 +43,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr
-                                        >
-                                        <td>123</td>
-                                        <td>123</td>
-                                        <td>123</td>
-                                        <td class="cursor"><a target="_blank" href=""></a></td>
+                                    <tr *ngFor="let documento of documentos | paginate: { itemsPerPage: 2, currentPage: p }">
+                                        <td>{{documento.nombre}}</td>
+                                        <td>{{documento.usuario.nombre}}</td>
+                                        <td>{{documento.fecha}}</td>
+                                        <td class="cursor"><a target="_blank" href=""></a>{{documento.pdf}}</td>
                                         <td class="text-nowrap text-center">
                                             <a data-toggle="modal" data-target=".example2-modal-lg" class="cursor"
                                                 (click)="editarDocumento('id')">

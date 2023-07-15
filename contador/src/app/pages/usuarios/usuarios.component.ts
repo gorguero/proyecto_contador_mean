@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Usuarios from 'src/app/models/usuarios.model';
+import { BusquedasService } from 'src/app/services/busquedas.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 
@@ -14,13 +15,24 @@ export class UsuariosComponent implements OnInit{
   public usuarios!: Usuarios[];
   public usuariosTemp: Usuarios[] = [];
   public p: any = 1;
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService, private busquedasServices: BusquedasService) {}
 
   ngOnInit(): void {
     this.cargarUsuarios();
     this.usuarioService.cargarUsuarios().subscribe( (usuarios) => {
       this.usuarios = usuarios;
     })
+  }
+
+  buscar(termino:string): any{
+    if(termino.length === 0){
+      return this.usuarios = this.usuariosTemp;
+    }
+
+    this.busquedasServices.buscar('usuarios', termino).subscribe( 
+        (resp:any) => {
+        this.usuarios = resp;
+      });
   }
 
   cargarUsuarios(){

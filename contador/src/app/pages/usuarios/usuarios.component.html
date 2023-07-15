@@ -10,7 +10,10 @@
                             
                 <input type="text"
                         class="form-control"
-                        placeholder="Buscar usuario..."/>
+                        placeholder="Buscar usuario..."
+                        (keyup)="buscar(txtTermino.value)"
+                        #txtTermino
+                        />
 
             </div>
             <!-- Nav tabs -->

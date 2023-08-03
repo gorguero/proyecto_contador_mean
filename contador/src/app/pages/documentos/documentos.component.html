@@ -43,7 +43,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let documento of documentos | paginate: { itemsPerPage: 2, currentPage: p }">
+                                    <tr *ngFor="let documento of documentos | paginate: { itemsPerPage: 5, currentPage: p }">
                                         <td>{{documento.nombre}}</td>
                                         <td>{{documento.usuario.nombre}}</td>
                                         <td>{{documento.fecha}}</td>
@@ -54,7 +54,7 @@
                                                 <i class="fa fa-pencil text-inverse m-r-10"></i>
                                             </a>
                                             <a data-toggle="tooltip" data-original-title="Borrar" class="cursor"
-                                                (click)="eliminarDocumento()">
+                                                (click)="eliminarDocumento(documento)">
                                                 <i class="fa fa-close text-danger"></i>
                                             </a>
                                         </td>

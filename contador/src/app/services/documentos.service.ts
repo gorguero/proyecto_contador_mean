@@ -66,4 +66,10 @@ export class DocumentosService {
       );
   }
 
+  //Eliminar documento
+  eliminarDocumento(documento:Documentos){
+    const url = `${base_url}/documentos/${documento._id}`;
+    return this.http.delete(url, this.headers);
+  }
+
 }

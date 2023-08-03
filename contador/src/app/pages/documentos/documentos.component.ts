@@ -3,6 +3,7 @@ import { Documentos } from 'src/app/models/documentos.models';
 import Usuarios from 'src/app/models/usuarios.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
 import { DocumentosService } from 'src/app/services/documentos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-documentos',
@@ -53,7 +54,32 @@ export class DocumentosComponent implements OnInit{
 
   }
 
-  eliminarDocumento(){}
+  eliminarDocumento(documento:Documentos){
+    Swal.fire({
+      title: `¿Desea borrar el documento ${documento.nombre}?`,
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      denyButtonText: `No deseo eliminar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.documentosService.eliminarDocumento(documento).subscribe( resp => {
+          this.cargarDocumentos();
+          Swal.fire('Eliminado', 'Se eliminó exitosamente', 'success')
+        }, (err) => {
+          Swal.fire({
+            icon: 'error', 
+            title: 'Error', 
+            text: err.error.msg
+          })
+        })
+      } else if (result.isDenied) {
+        Swal.fire('¡Cancelado!', '', 'error');
+      }
+    })
+    
+  }
 
   campoNoValido(campo:string){}
 

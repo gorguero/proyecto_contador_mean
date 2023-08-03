@@ -6,6 +6,7 @@ import { Login } from '../interfaces/login.interface';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Usuarios } from '../models/usuarios.model';
+import { CargarUsuarios } from '../interfaces/cargar-usuarios.interface';
 
 const url = environment.url;
 
@@ -33,15 +34,16 @@ export class UsuarioService {
     return this.usuario.uid || '';
   }
 
-  almacenarLocalStorage(token:string){
+  almacenarLocalStorage(token:string, menu:any){
     localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
   }
 
   crearUsuario( data: Registro ){
     return this.http.post(`${url}/usuarios`, data)
       .pipe(
         tap( (resp:any) => {
-          this.almacenarLocalStorage(resp.token);
+          this.almacenarLocalStorage(resp.token, resp.menu);
         } )
       );
   }
@@ -50,7 +52,7 @@ export class UsuarioService {
     return this.http.post(`${url}/login`, data)
       .pipe(
         tap( (resp:any) => {
-          this.almacenarLocalStorage(resp.token);
+          this.almacenarLocalStorage(resp.token, resp.menu);
         } )
       );
   }
@@ -67,7 +69,7 @@ export class UsuarioService {
     }).pipe(
       map( (resp:any) => {
         const { nombre, email, curp, telefono, password, password2, rol, uid } = resp.usuario;
-        this.almacenarLocalStorage( resp.token );
+        this.almacenarLocalStorage( resp.token, resp.menu );
         this.usuario = new Usuarios( nombre, email, curp, telefono, '', '', rol, uid );
         return true
       }),
@@ -83,6 +85,27 @@ export class UsuarioService {
     }
     
     return this.http.put( `${url}/usuarios/${this.uid}`, data, this.headers );
+  }
+
+  cargarUsuarios(){
+    return this.http.get<CargarUsuarios>(`${url}/usuarios`, this.headers)
+    .pipe(
+      map(  resp => {
+        const documentos = resp.usuarios.map(
+          user => new Usuarios( user.nombre, user.email, user.curp, user.telefono, '', '', user.rol, user.uid ))
+        return documentos;
+      })
+    )
+  }
+
+  //Guarda el usuario con su nuevo rol
+  guardarUsuario( usuario:Usuarios ){
+    return this.http.put(`${url}/usuarios/${usuario.uid}`, usuario, this.headers);
+  }
+
+  eliminarUsuario( usuario:Usuarios ){
+    const url_delete = `${url}/usuarios/${usuario.uid}`;
+    return this.http.delete( url_delete, this.headers );
   }
 
 }

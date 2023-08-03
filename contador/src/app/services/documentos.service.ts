@@ -4,6 +4,7 @@ import { Documentos } from '../models/documentos.models';
 import { environment } from 'src/environments/environment';
 import {map} from 'rxjs';
 import { CargarDocumentos } from '../interfaces/cargar-documentos.interface';
+import { NuevoDocumento } from '../models/nuevoDocumento.models';
 
 const base_url = environment.url;
 
@@ -54,6 +55,15 @@ export class DocumentosService {
             return documentos;
         } )
       )
+  }
+
+  //Crear un nuevo documento
+  crearDocumento( dataForm:NuevoDocumento ){
+    const url = `${base_url}/documentos`;
+    return this.http.post(url, dataForm, this.headers)
+      .pipe(
+        map( (dataForm: any) => dataForm.documento )
+      );
   }
 
 }

@@ -12,6 +12,7 @@ declare var $: any;
 export class ArchivosComponent implements OnInit{
 
   public id!:string;
+  public pdfSubir: File | undefined;
 
   constructor(private activateRoute:ActivatedRoute, private router:Router){}
 
@@ -64,7 +65,10 @@ export class ArchivosComponent implements OnInit{
   });
   }
 
-  cambiarPDF(){}
+  cambiarPDF(e: any){
+    this.pdfSubir = e.files[0];
+    console.log(this.pdfSubir)
+  }
 
   subirPDF(){}
 

@@ -23,6 +23,9 @@ export class DocumentosComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.documentosService.cargarDocumentos().subscribe( documentos => {
+      this.documentos = documentos;
+    })
   }
 
   cargarDocumentos(){

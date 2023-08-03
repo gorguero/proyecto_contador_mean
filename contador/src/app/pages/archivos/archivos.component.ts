@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { FileuploadService } from 'src/app/services/fileupload.service';
+import Swal from 'sweetalert2';
 declare var JQuery: any;
 declare var $: any;
 
@@ -12,9 +13,9 @@ declare var $: any;
 export class ArchivosComponent implements OnInit{
 
   public id!:string;
-  public pdfSubir: File | undefined;
+  public pdfSubir!: File;
 
-  constructor(private activateRoute:ActivatedRoute, private router:Router){}
+  constructor(private activateRoute:ActivatedRoute, private router:Router, private fileUploadServices:FileuploadService){}
 
   ngOnInit(): void {
 
@@ -70,7 +71,16 @@ export class ArchivosComponent implements OnInit{
     console.log(this.pdfSubir)
   }
 
-  subirPDF(){}
+  subirPDF(){
+    this.fileUploadServices.actualizarPDF(this.pdfSubir, 'documentos', this.id)
+      .then( pdf => {
+        console.log(pdf);
+        this.router.navigateByUrl(`/dashboard/documentos`);
+      } ).catch(err => {
+        console.log(err);
+        Swal.fire('Error', 'No se pudo subir el archivo', 'error');
+      })
+  }
 
   regresarADocumentos(){
     this.router.navigateByUrl('/dashboard/documentos');

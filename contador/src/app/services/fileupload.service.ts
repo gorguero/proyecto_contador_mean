@@ -30,7 +30,13 @@ export class FileuploadService {
       })
 
       const data = await resp.json();
-      return 'El archivo se ha subido';
+      if(data.ok){
+        console.log(data.msg)
+        return data.fileName;
+      }else{
+        console.log(data.msg);
+        return false;
+      }
 
     } catch (error) {
       console.log(error);

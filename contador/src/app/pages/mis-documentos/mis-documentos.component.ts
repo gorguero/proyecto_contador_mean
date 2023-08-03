@@ -11,6 +11,7 @@ export class MisDocumentosComponent implements OnInit{
 
   public cargando: boolean = false;
   public documentos!: any[];
+  public p: any = 1;
 
   constructor(private activatedRoute: ActivatedRoute, private documentosService: DocumentosService){
     

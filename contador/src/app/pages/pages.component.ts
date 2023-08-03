@@ -27,4 +27,8 @@ export class PagesComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
+  misDocumentos(uid:string){
+    this.router.navigateByUrl(`dashboard/documentos/mis-documentos/${uid}`);
+  }
+
 }

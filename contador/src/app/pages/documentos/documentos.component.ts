@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Documentos } from 'src/app/models/documentos.models';
 import Usuarios from 'src/app/models/usuarios.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
@@ -20,7 +21,7 @@ export class DocumentosComponent implements OnInit{
   public documento: any = {};
   public p: any = 1;
 
-  constructor(private busquedasServices: BusquedasService, private documentosService: DocumentosService) {
+  constructor(private busquedasServices: BusquedasService, private documentosService: DocumentosService, private router:Router) {
     this.cargarDocumentos();
   }
 
@@ -84,6 +85,10 @@ export class DocumentosComponent implements OnInit{
       }
     })
     
+  }
+
+  editarpdf(_id:any){
+    this.router.navigateByUrl(`/dashboard/documentos/${_id}`);
   }
 
   campoNoValido(campo:string){}

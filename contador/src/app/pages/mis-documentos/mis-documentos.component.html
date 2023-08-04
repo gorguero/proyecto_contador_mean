@@ -28,7 +28,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let documento of documentos | paginate: { itemsPerPage: 2, currentPage: p }">
+                                    <tr *ngFor="let documento of documentos | paginate: { itemsPerPage: 5, currentPage: p }">
                                         <td>{{ documento.nombre }}</td>
                                         <td>{{ documento.fecha }}</td>
                                         <td class="cursor" ><a target="_blank" href="{{documento.documentoUrl}}" download="{{documento.documentoUrl}}">{{ documento.pdf }}</a></td>                                        

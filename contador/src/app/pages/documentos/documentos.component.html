@@ -43,19 +43,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let documento of documentos | paginate: { itemsPerPage: 2, currentPage: p }">
+                                    <tr *ngFor="let documento of documentos | paginate: { itemsPerPage: 5, currentPage: p }">
                                         <td>{{documento.nombre}}</td>
                                         <td>{{documento.usuario.nombre}}</td>
                                         <td>{{documento.fecha}}</td>
                                         <td class="cursor"><a target="_blank" href="{{documento.documentoUrl}}" download="{{documento.documentoUrl}}">{{documento.pdf}}</a></td>
                                         <td class="text-nowrap text-center">
                                             <a data-toggle="modal" data-target=".example2-modal-lg" class="cursor"
-                                                (click)="editarDocumento('id')">
+                                                (click)="editarDocumento(documento._id)">
                                                 <i class="fa fa-pencil text-inverse m-r-10"></i>
                                             </a>
                                             <a data-toggle="tooltip" data-original-title="Borrar" class="cursor"
-                                                (click)="eliminarDocumento()">
+                                                (click)="eliminarDocumento(documento)">
                                                 <i class="fa fa-close text-danger"></i>
+                                            </a>
+                                            <a data-toggle="modal" data-target=".example2-modal-lg" class="cursor"
+                                                (click)="editarpdf(documento._id)">
+                                                <i class="fa fa-file-o text-inverse m-r-10" style="margin-left: 10px;"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -100,8 +104,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label">Nombre del documento</label>
-                                                        <input type="text" class="form-control" formControlName="nombre"
-                                                            placeholder="Brenda Torres">
+                                                        <input type="text" class="form-control" name="documento.nombre" [(ngModel)]="documento.nombre">
                                                     </div>
                                                     <div class="row">
                                                         <div class="col text-danger">
@@ -110,7 +113,15 @@
                                                     </div>
                                                 </div>
                                                 <!--/span-->
-
+                                                <div class="form-group row">
+                                                    <label for="example-date-input" class="col-6 col-form-label">Fecha Elaborada</label>
+                                                    <div class="col-6">
+                                                        <input class="form-control" type="date" [name]="documento.fecha" [(ngModel)]="documento.fecha" [value]="documento.fecha" id="example-date-input">
+                                                    </div>
+                                                    <div class="col text-danger">                            
+                                                        <p *ngIf="campoNoValido('fecha');"> Agregue una fecha</p>
+                                                    </div>
+                                                </div>
                                                 <!--/span-->
 
                                                 <!--/row-->

@@ -88,6 +88,17 @@ export class DocumentosComponent implements OnInit{
 
   campoNoValido(campo:string){}
 
-  actualizarDocumento(){}
+  actualizarDocumento(){
+    this.documentosService.actualizarDatosDelDocumento(this.documento)
+      .subscribe( resp => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Datos actualizados',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.cargarDocumentos();
+      } )
+  }
 
 }

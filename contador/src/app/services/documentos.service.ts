@@ -65,7 +65,7 @@ export class DocumentosService {
       )
   }
 
-  //Crear un nuevo documento
+
   crearDocumento( dataForm:NuevoDocumento ){
     const url = `${base_url}/documentos`;
     return this.http.post(url, dataForm, this.headers)
@@ -74,7 +74,15 @@ export class DocumentosService {
       );
   }
 
-  //Eliminar documento
+  actualizarDatosDelDocumento(documento:Documentos){
+    const url = `${base_url}/documentos/editar-documento/${documento._id}`;
+    return this.http.put(url, documento, this.headers)
+      .pipe(
+        map( (documento:any) => documento.documento )
+      )
+  }
+
+
   eliminarDocumento(documento:Documentos){
     const url = `${base_url}/documentos/${documento._id}`;
     return this.http.delete(url, this.headers);

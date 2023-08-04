@@ -57,6 +57,14 @@ export class DocumentosService {
       )
   }
 
+  cargarDocumentoByID(id: string){
+    const url = `${base_url}/documentos/editar-documentos`;
+    return this.http.get(`${url}/${id}`, this.headers)
+      .pipe( 
+        map( (id:any) => id.documentos ) 
+      )
+  }
+
   //Crear un nuevo documento
   crearDocumento( dataForm:NuevoDocumento ){
     const url = `${base_url}/documentos`;

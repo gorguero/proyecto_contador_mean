@@ -17,6 +17,7 @@ export class DocumentosComponent implements OnInit{
   public usuariosTemp: Usuarios[] = [];
   public documentos!: Documentos[];
   public documentosTemp: Documentos[] = [];
+  public documento: any = {};
   public p: any = 1;
 
   constructor(private busquedasServices: BusquedasService, private documentosService: DocumentosService) {
@@ -50,8 +51,12 @@ export class DocumentosComponent implements OnInit{
       });
   }
 
-  editarDocumento(_id:string){
-
+  editarDocumento(documento:any){
+    console.log(documento)
+    this.documentosService.cargarDocumentoByID(documento)
+      .subscribe( resp => {
+        this.documento = resp;
+      } )
   }
 
   eliminarDocumento(documento:Documentos){
